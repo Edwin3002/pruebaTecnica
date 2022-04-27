@@ -96,7 +96,7 @@ const Register = () => {
                 <p className='fw-normal'>
                     Al hacer clic en "Regístrate", aceptas las condiciones de uso de “Asistente Prof ” y reconoces haber leído la política de privacidad.
                 </p>
-                <img className='d-flex m-auto' src="https://i.ibb.co/3shb2pT/3785210-removebg-preview-1.png" alt='people'></img>
+                <img className='d-flex m-auto w-100' src="https://i.ibb.co/3shb2pT/3785210-removebg-preview-1.png" alt='people'></img>
             </Container>
 
         </div>
