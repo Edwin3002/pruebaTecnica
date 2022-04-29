@@ -2,7 +2,6 @@ import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "f
 import { facebook, google } from "../../Firebase/firebaseConfig"
 import { typesLogin } from "../types/types"
 
-
 //--------------------Logout----------------------
 
 export const logoutAsync = ()=>{

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Nav, Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from '../Hooks/useForm';
+import { Button, Flex, Image, Menu, MenuButton, MenuItem, MenuList, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
 import { logoutAsync } from '../redux/actions/actionLogin';
-
+import Logo from '../img/logo.png'
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 const NavBars = () => {
 
@@ -16,28 +15,75 @@ const NavBars = () => {
         navigate("/login")
     }
 
-
-    const { products } = useSelector(store => store.products)
-    const [all, setall] = useState(products)
-
-
     return (
-        <div >
-            <Nav className="me-auto d-flex justify-content-between nav1">
-                <Nav.Link className='px-0'>
-                    <Link to="/" >
-                        <img
-                            src="https://i.ibb.co/MSyvvTJ/Whats-App-Image-2022-04-25-at-10-24-26-PM-removebg-preview.png"
-                            width="10%" alt="" />
-                    </Link>
-                </Nav.Link>
-                <Nav.Link className='d-flex align-items-center px-0'>
-                    <Button onClick={handleLogout} variant="outline-danger ">Salir <i className="bi bi-box-arrow-left">
-                    </i></Button>
-                </Nav.Link>
-            </Nav>
+        <Flex
+            bg='#00bae0'
+            color={useColorModeValue('gray.600', 'white')}
+            minH={'60px'}
+            py={{ base: 2 }}
+            px={{ base: 4 }}
+            borderBottom={1}
+            borderStyle={'solid'}
+            align={'center'}>
+            <Flex
+                flex={{ base: 1, md: 'auto' }}
+                ml={{ base: -2 }}
+                display={{ base: 'flex', md: 'none' }}>
+                <Menu>
+                    {({ isOpen }) => (
+                        <>
+                            <MenuButton isActive={isOpen} as={Button} >
+                                {isOpen ? <CloseIcon /> : <HamburgerIcon />}
 
-        </div>
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem fontSize='2xl'>Home</MenuItem>
+                                <MenuItem fontSize='2xl'>Nosotros</MenuItem>
+                                <MenuItem fontSize='2xl' onClick={handleLogout}
+                                bg={'#5534a5'}
+                                color='white'
+                                
+                                _hover={{
+                                    bg: '#9a50ff',
+                                }}>Salir</MenuItem>
+                                <MenuItem fontSize='2xl'>
+
+                                </MenuItem>
+                            </MenuList>
+                        </>
+                    )}
+                </Menu>
+            </Flex>
+            <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+                <Image w='10%' src={Logo} alt='Dan Abramov' />
+                <Flex w='100%' display={{ base: 'none', md: 'flex' }} ml={10}>
+                    {/* <Link> */}
+                    <Text fontSize='2xl' m='auto' onClick={() => navigate("/")}>Home</Text>
+                    {/* </Link> */}
+                    <Text fontSize='2xl' m='auto'>Nosotros</Text>
+                </Flex>
+            </Flex>
+
+            <Stack
+                flex={{ base: 1, md: 0 }}
+                justify={'flex-end'}
+                direction={'row'}
+                spacing={6}>
+                <Button
+                    onClick={handleLogout}
+                    display={{ base: 'none', md: 'inline-flex' }}
+                    fontSize={'sm'}
+                    fontWeight={600}
+                    color={'white'}
+                    bg={'#5534a5'}
+                    href={'#'}
+                    _hover={{
+                        bg: '#9a50ff',
+                    }}>
+                    Salir
+                </Button>
+            </Stack>
+        </Flex>
     );
 };
 

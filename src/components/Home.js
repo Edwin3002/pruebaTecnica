@@ -1,13 +1,13 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Footer } from './Footer';
-import {  BecasShow } from './BecasShow';
+import { CardsCruds } from './CardsCruds';
 
 
 const Home = () => {
     return (
         <div>
-            <BecasShow/>
+            <CardsCruds/>
             <Footer/>
         </div>
     );

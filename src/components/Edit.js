@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Button, Form, Modal } from 'react-bootstrap'
 import { useDispatch } from 'react-redux';
 import { useForm } from '../Hooks/useForm';
 import { updateAsync } from '../redux/actions/actionBecas';
@@ -27,7 +26,7 @@ export const Edit = ({mEdit}) => {
         <div>
             <div>edit
             </div>
-            <Modal show={show} onHide={handleClose}>
+            {/* <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edite el producto aqui</Modal.Title>
                 </Modal.Header>
@@ -58,7 +57,7 @@ export const Edit = ({mEdit}) => {
                         Cancel
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
 
         </div>
 

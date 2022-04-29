@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Form, Modal, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { FileUp } from '../helpers/FileUp'
 import { useForm } from '../Hooks/useForm'
 import { addAsync, deleteAsync, listAsyn } from '../redux/actions/actionBecas'
 import uuid from 'react-uuid'
 import { Edit } from './Edit'
+import { Footer } from './Footer'
 
-export const Crud = () => {
+export const CrudClases = () => {
     const [actionModal, setActionModal] = useState([])
 
-    // Subir becas
+    // Subir clases
     const [values, handleInputChange, reset] = useForm({
         id: uuid(),
         name: '',
@@ -66,7 +66,7 @@ export const Crud = () => {
     // cargar data
     const dispatch = useDispatch()
 
-    const { becas } = useSelector(store => store.becas)
+    const { clases } = useSelector(store => store.clases)
 
     useEffect(() => {
         dispatch(listAsyn())
@@ -82,20 +82,21 @@ export const Crud = () => {
     }
     return (
         <div>
-            <Form className='w-75 my-5 mx-auto' onSubmit={handleSubmit}>
+            soy crud
+            {/* <Form className='w-75 my-5 mx-auto' onSubmit={handleSubmit}>
                 <h1 className='text-center'>Crud</h1>
                 <Form.Group className="mb-3" >
-                    <Form.Label>Name beca</Form.Label>
+                    <Form.Label>Name clase</Form.Label>
                     <Form.Control type="text" placeholder="Name" name='name' value={name} onChange={handleInputChange} />
 
                 </Form.Group>
                 <Form.Group className="mb-3" >
-                    <Form.Label>discount beca </Form.Label>
+                    <Form.Label>discount clase </Form.Label>
                     <Form.Control type="number" placeholder="discount" name='discount' value={discount} onChange={handleInputChange} />
 
                 </Form.Group>
                 <Form.Group className="mb-3" >
-                    <Form.Label>Image beca</Form.Label>
+                    <Form.Label>Image clase</Form.Label>
                     <Form.Control type="file" placeholder="Image" name='img' value={img} onChange={handleFileChange} />
 
                 </Form.Group>
@@ -116,28 +117,28 @@ export const Crud = () => {
                 </thead>
                 <tbody >
                     {
-                        becas.map((beca, index) => (
+                        clases.map((clase, index) => (
                             <tr key={index} >
 
                                 <td className='position-relative w-25'>
                                     <div className='position-absolute top-50 start-50 translate-middle'>
-                                        {beca.name}
+                                        {clase.name}
                                     </div>
                                 </td>
                                 <td className='position-relative w-2'>
                                     <div className='position-absolute top-50 start-50 translate-middle'>
-                                        {beca.discount}%
+                                        {clase.discount}%
                                     </div>
                                 </td>
                                 <td className='position-relative w-50'>
                                     <div className='imgCrud d-flex align-items-center'>
-                                        <img className=' w-25 m-auto' src={beca.img} alt={beca.name} />
+                                        <img className=' w-25 m-auto' src={clase.img} alt={clase.name} />
                                     </div>
                                 </td>
                                 <td className='position-relative w-2'>
                                     <div className='imgCrud d-flex align-items-center justify-content-evenly'>
-                                        <div onClick={() => {editarM(beca)}} className="bi bi-pencil-square text-warning"></div>
-                                        <div onClick={() => { eliminar(beca) }} className="bi bi-trash3 text-danger"></div>
+                                        <div onClick={() => {editarM(clase)}} className="bi bi-pencil-square text-warning"></div>
+                                        <div onClick={() => { eliminar(clase) }} className="bi bi-trash3 text-danger"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -162,7 +163,7 @@ export const Crud = () => {
             </Table>
             {
                 modalEdit === true ? <Edit mEdit={dataModal} /> : ''
-            }
+            } */}
         </div>
     )
 

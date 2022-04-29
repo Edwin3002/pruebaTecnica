@@ -1,0 +1,8 @@
+.home{
+    background-image: url(https://i.ibb.co/YjGLZpM/1000-F-191071734-Vyr2j-GAQz-CW6-FJTG3-T5-OPHTMWJHTi-XM3-removebg-preview.png);
+    background-size: 100%;
+}
+.imgAdd:hover{
+    transform: scale(1.02);
+    filter: brightness(0.9);
+}

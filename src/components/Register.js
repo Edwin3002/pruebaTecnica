@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from '../Hooks/useForm';
@@ -25,7 +24,8 @@ const Register = () => {
 
     return (
         <div>
-            <Nav className='d-flex justify-content-between' style={{ background: '#4B3F6B', fontWeight: 'bold', backgroundImage: "url('https://i.ibb.co/CngVcj8/descarga-2.png')" }} as="ul">
+            soy register
+            {/* <Nav className='d-flex justify-content-between' style={{ background: '#4B3F6B', fontWeight: 'bold', backgroundImage: "url('https://i.ibb.co/CngVcj8/descarga-2.png')" }} as="ul">
                 <Nav.Item as="li">
                     <Nav.Link href="/Login" style={{ color: 'white' }}>Volver</Nav.Link>
                 </Nav.Item>
@@ -97,7 +97,7 @@ const Register = () => {
                     Al hacer clic en "Regístrate", aceptas las condiciones de uso de “Asistente Prof ” y reconoces haber leído la política de privacidad.
                 </p>
                 <img className='d-flex m-auto w-100' src="https://i.ibb.co/3shb2pT/3785210-removebg-preview-1.png" alt='people'></img>
-            </Container>
+            </Container> */}
 
         </div>
     );

@@ -7,35 +7,35 @@ import { typesProducts } from "../types/types"
 //listar_paint
 export const listAsyn = () => {
     return async (dispatch) => {
-        const colleccionTraer = await getDocs(collection(getMyData, "becas"))
-        const becas = []
+        const colleccionTraer = await getDocs(collection(getMyData, "Clases"))
+        const clases = []
         colleccionTraer.forEach((doc) => {
-            becas.push({
+            clases.push({
                 ...doc.data()
 
 
             })
         })
-        dispatch(listSync(becas))
+        dispatch(listSync(clases))
 
     }
 }
 
-export const listSync = (becas) => {
+export const listSync = (clases) => {
     return {
         type: typesProducts.paint,
-        payload: becas
+        payload: clases
     }
 
 }
 
 //add
-export const addAsync = (becas)=>{
+export const addAsync = (clases)=>{
     return(dispatch)=>{
-        addDoc(collection(getMyData, 'becas'), becas)
+        addDoc(collection(getMyData, 'Clases'), clases)
         .then(resp => {
-            dispatch(addSync(becas))
-            console.log(becas)
+            dispatch(addSync(clases))
+            console.log(clases)
              dispatch(listAsyn())
         })
         .catch(error => {
@@ -44,10 +44,10 @@ export const addAsync = (becas)=>{
     }
 }
 
-export const addSync = (becas) => {
+export const addSync = (clases) => {
     return {
         type: typesProducts.add,
-        payload: becas,
+        payload: clases,
     }
 }
 
@@ -55,11 +55,11 @@ export const addSync = (becas) => {
 export const deleteAsync = (id) => {
 
     return async (dispatch) => {
-        const colleccionTraer = collection(getMyData, "becas")
+        const colleccionTraer = collection(getMyData, "Clases")
         const q = query(colleccionTraer, where("id", "==", id))
         const traerDatosQ = await getDocs(q)
         traerDatosQ.forEach((collec => {
-            deleteDoc(doc(getMyData, "becas", collec.id))
+            deleteDoc(doc(getMyData, "Clases", collec.id))
         }))
         dispatch(deleteSync(id))
         dispatch(listAsyn())
@@ -74,10 +74,10 @@ export const deleteSync = (id) => {
 }
 
 //update
-export const updateAsync = (index, beca) => {
-    console.log(index, beca)
+export const updateAsync = (index, clase) => {
+    console.log(index, clase)
     return async (dispatch) => {
-        const colleccionTraer = collection(getMyData, "becas")
+        const colleccionTraer = collection(getMyData, "Clases")
         const q = query(colleccionTraer, where("id", "==", index))
         const traerDatosQ = await getDocs(q)
         console.log(colleccionTraer)
@@ -88,10 +88,10 @@ export const updateAsync = (index, beca) => {
             id = docu.id
         })
         console.log(id)
-        const documenRef = doc(getMyData, "becas", id)
-        await updateDoc(documenRef, beca)
+        const documenRef = doc(getMyData, "Clases", id)
+        await updateDoc(documenRef, clase)
             .then(resp => {
-                dispatch(UpdateSync(beca))
+                dispatch(UpdateSync(clase))
                 console.log(resp)
             })
             .catch((err) => console.log(err))
@@ -100,10 +100,10 @@ export const updateAsync = (index, beca) => {
 }
 
 
-export const UpdateSync = (beca) => {
+export const UpdateSync = (clase) => {
     return {
         type: typesProducts.editSync,
-        payload: beca
+        payload: clase
     }
 
 }
