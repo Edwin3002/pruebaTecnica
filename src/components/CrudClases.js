@@ -1,65 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FileUp } from '../helpers/FileUp'
 import { useForm } from '../Hooks/useForm'
-import { addAsync, deleteAsync, listAsyn } from '../redux/actions/actionBecas'
+import { addAsync, deleteAsync, listAsyn, updateAsync } from '../redux/actions/actionBecas'
 import uuid from 'react-uuid'
-import { Edit } from './Edit'
-import { Footer } from './Footer'
+import { Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, Flex, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter, Button, ModalBody, useDisclosure, Text, FormControl, FormLabel, Input, Select, } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 export const CrudClases = () => {
-    const [actionModal, setActionModal] = useState([])
+
 
     // Subir clases
     const [values, handleInputChange, reset] = useForm({
         id: uuid(),
         name: '',
-        discount: '',
-        img: '',
+        teacher: '',
+        date: '',
+        room: ''
     })
 
-    const { name, discount, img } = values
+    const { name, teacher, date, room } = values
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(values)
         dispatch(addAsync(values))
         reset()
-    }
-
-    // Cloudinary image
-    const handleFileChange = (e) => {
-        const file = e.target.files[0]
-        //el FileUp es la configuracion con cloudinary y le asigno la respuesta de cloudi a la foto
-        FileUp(file)
-            .then(resp => {
-                values.img = resp
-                console.log(resp)
-            })
-            .catch(error => {
-                console.warn(error)
-            })
-    }
-
-
-    // action delete
-
-    const [show2, setShow2] = useState(false);
-    const handleClose2 = () => setShow2(false);
-    const handleShow2 = () => setShow2(true);
-
-    const eliminar = (p) => {
-        handleShow2()
-        setActionModal(p)
-        console.log(p)
-    }
-
-    const eliminarYes = () => {
-        console.log(actionModal.id)
-        dispatch(deleteAsync(actionModal.id))
-        setTimeout(() => {
-            handleClose2()
-        }, 1000)
     }
 
 
@@ -73,97 +37,181 @@ export const CrudClases = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const [modalEdit, setModalEdit] = useState(false)
-    const [dataModal, setDataModal] = useState([])
+    // modales
+    const { isOpen: isOpen1, onOpen: onOpen1, onClose: onClose1 } = useDisclosure()
+    const { isOpen: isOpen2, onOpen: onOpen2, onClose: onClose2 } = useDisclosure()
+    const finalRef = React.useRef()
+    // action update
+    const [actionModalEdit, setActionModalEdit] = useState([])
     const editarM = (p) => {
+        setActionModalEdit(p)
+        onOpen1()
+
+    }
+    const editarYes = () => {
+        // valuesEdit.id = actionModalEdit.id
+        dispatch(updateAsync(actionModalEdit.id, valuesEdit))
+        setTimeout(() => {
+            onClose1()
+        }, 1000)
+    }
+    const [valuesEdit, handleInputChangeEdit] = useForm({
+        name: actionModalEdit.name,
+        teacher: actionModalEdit.teacher,
+        date: actionModalEdit.date,
+        room: actionModalEdit.room,
+        // id: actionModalEdit.id
+    })
+
+
+    // action delete
+    const [actionModalDelete, setActionModalDelete] = useState([])
+    const eliminar = (p) => {
+        onOpen2()
+        setActionModalDelete(p)
         console.log(p)
-        setDataModal(p)
-        setModalEdit(true)
+    }
+
+    const eliminarYes = () => {
+        console.log(actionModalDelete.id)
+        dispatch(deleteAsync(actionModalDelete.id))
+        setTimeout(() => {
+            onClose2()
+        }, 1000)
     }
     return (
         <div>
-            soy crud
-            {/* <Form className='w-75 my-5 mx-auto' onSubmit={handleSubmit}>
-                <h1 className='text-center'>Crud</h1>
-                <Form.Group className="mb-3" >
-                    <Form.Label>Name clase</Form.Label>
-                    <Form.Control type="text" placeholder="Name" name='name' value={name} onChange={handleInputChange} />
+            <Flex justify='space-around'>
+                <Text fontSize='4xl' fontWeight='bold' >CRUD TUTORIAS</Text>
+                <Link to='/crudProfes'>
+                    <Button bg='#5534A5' color='white' my='10px' size='lg'>
+                        Crud Profesores
+                    </Button>
+                </Link>
+            </Flex>
+            <FormControl m='20px auto' w=' 90%' >
+                <FormLabel htmlFor='materia'>Materia </FormLabel>
+                <Select id='materia' placeholder='Selecciona tu materia' name='name' value={name} onChange={handleInputChange}>
+                    <option >Ingles</option>
+                    <option>Fisica</option>
+                    <option>Programacion</option>
+                </Select>
+                <FormLabel htmlFor='profe'>Profesor</FormLabel>
+                <Select id='profe' placeholder='Selecciona tu profesor' name='teacher' value={teacher} onChange={handleInputChange}>
+                    <option>Hugo</option>
+                    <option>Paco</option>
+                    <option>Luis</option>
+                </Select>
+                <FormLabel htmlFor='salon'>Salon</FormLabel>
+                <Select id='salon' placeholder='Selecciona un salon' name='room' value={room} onChange={handleInputChange}>
+                    <option>a1</option>
+                    <option>a2</option>
+                    <option>b1</option>
+                    <option>b2</option>
+                    <option>c1</option>
+                    <option>c2</option>
+                </Select>
+                <FormLabel htmlFor='date'>Fecha</FormLabel>
+                <Input id='date' type='date' name='date' value={date} onChange={handleInputChange} />
+                <Button colorScheme='blue' my=' 20px' onClick={handleSubmit}>Subir tutoria</Button>
+            </FormControl>
+            <TableContainer m='20px auto' w='90%'>
+                <Table variant='striped' colorScheme='teal'>
+                    <TableCaption>Tutorias agendadas</TableCaption>
+                    <Thead>
+                        <Tr>
+                            <Th>Actions</Th>
+                            <Th>Materia</Th>
+                            <Th>Profesor</Th>
+                            <Th>Fecha</Th>
+                            <Th>Salon</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {
+                            clases.map((cl, index) => (
+                                <Tr key={index}>
+                                    <Td >
+                                        <Flex justify='space-around'>
+                                            {/* <span onClick={() => { editarM(cl) }} className="bi bi-pencil-square text-warning"></span> */}
+                                            <span onClick={() => { editarM(cl) }} className="bi bi-pencil-square text-warning"></span>
+                                            <span onClick={() => { eliminar(cl) }} className="bi bi-trash3 text-danger"></span>
+                                        </Flex>
+                                    </Td>
+                                    <Td>{cl.name}</Td>
+                                    <Td>{cl.teacher}</Td>
+                                    <Td>{cl.date}</Td>
+                                    <Td>{cl.room}</Td>
+                                </Tr>
+                            ))
+                        }
+                    </Tbody>
+                </Table>
+            </TableContainer>
 
-                </Form.Group>
-                <Form.Group className="mb-3" >
-                    <Form.Label>discount clase </Form.Label>
-                    <Form.Control type="number" placeholder="discount" name='discount' value={discount} onChange={handleInputChange} />
-
-                </Form.Group>
-                <Form.Group className="mb-3" >
-                    <Form.Label>Image clase</Form.Label>
-                    <Form.Control type="file" placeholder="Image" name='img' value={img} onChange={handleFileChange} />
-
-                </Form.Group>
-
-
-                <Button variant="success" type="submit">
-                    <div className="bi bi-cloud-arrow-up"> Upload</div>
-                </Button>
-            </Form>
-            <Table className='w-75 m-auto ' striped bordered hover size="sm">
-                <thead>
-                    <tr className='text-center'>
-                        <th>Name</th>
-                        <th>Discount</th>
-                        <th>Img</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody >
-                    {
-                        clases.map((clase, index) => (
-                            <tr key={index} >
-
-                                <td className='position-relative w-25'>
-                                    <div className='position-absolute top-50 start-50 translate-middle'>
-                                        {clase.name}
-                                    </div>
-                                </td>
-                                <td className='position-relative w-2'>
-                                    <div className='position-absolute top-50 start-50 translate-middle'>
-                                        {clase.discount}%
-                                    </div>
-                                </td>
-                                <td className='position-relative w-50'>
-                                    <div className='imgCrud d-flex align-items-center'>
-                                        <img className=' w-25 m-auto' src={clase.img} alt={clase.name} />
-                                    </div>
-                                </td>
-                                <td className='position-relative w-2'>
-                                    <div className='imgCrud d-flex align-items-center justify-content-evenly'>
-                                        <div onClick={() => {editarM(clase)}} className="bi bi-pencil-square text-warning"></div>
-                                        <div onClick={() => { eliminar(clase) }} className="bi bi-trash3 text-danger"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-                <Modal show={show2} onHide={handleClose2}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Desea eliminar este producto?</Modal.Title>
-                    </Modal.Header>
-                    <Card.Img className='w-50 m-auto' variant="top" src={actionModal.img} />
-                    <Modal.Body className='text-center'>{actionModal.name}</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="danger" onClick={eliminarYes}>
-                            Yes
-                        </Button>
-                        <Button variant="primary" onClick={handleClose2}>
+            {/* modal editar */}
+            <Modal finalFocusRef={finalRef} isOpen={isOpen1} onClose={onClose1}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Editar Tutorias</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <FormControl m=' auto' w=' 90%'>
+                            <FormLabel htmlFor='materia'>Materia actual <span style={{ color: '#ff7f50' }}>{actionModalEdit.name}</span></FormLabel>
+                            <Select id='materia' placeholder='Selecciona tu materia' name='name' value={valuesEdit.name} onChange={handleInputChangeEdit}>
+                                <option>Ingles</option>
+                                <option>Fisica</option>
+                                <option>Programacion</option>
+                            </Select>
+                            <FormLabel htmlFor='profe'>Profesor actual <span style={{ color: '#ff7f50' }}>{actionModalEdit.teacher}</span></FormLabel>
+                            <Select id='profe' placeholder='Selecciona tu profesor' name='teacher' value={valuesEdit.teacher} onChange={handleInputChangeEdit}>
+                                <option>Hugo</option>
+                                <option>Paco</option>
+                                <option>Luis</option>
+                            </Select>
+                            <FormLabel htmlFor='salon'>Salon actual <span style={{ color: '#ff7f50' }}>{actionModalEdit.room}</span></FormLabel>
+                            <Select id='salon' placeholder='Selecciona un salon' name='room' value={valuesEdit.room} onChange={handleInputChangeEdit}>
+                                <option>a1</option>
+                                <option>a2</option>
+                                <option>b1</option>
+                                <option>b2</option>
+                                <option>c1</option>
+                                <option>c2</option>
+                            </Select>
+                            <FormLabel htmlFor='date'>Fecha actual <span style={{ color: '#ff7f50' }}>{actionModalEdit.date}</span></FormLabel>
+                            <Input id='date' type='date' name='date' value={valuesEdit.date} onChange={handleInputChangeEdit} />
+                        </FormControl>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button variant='outline' colorScheme='yellow' mx='10px' onClick={editarYes}>Editar</Button>
+                        <Button colorScheme='blue' mr={3} onClick={onClose1}>
                             Cancel
                         </Button>
-                    </Modal.Footer>
-                </Modal>
-            </Table>
-            {
-                modalEdit === true ? <Edit mEdit={dataModal} /> : ''
-            } */}
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+
+            {/* modal eliminar */}
+            <Modal finalFocusRef={finalRef} isOpen={isOpen2} onClose={onClose2}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Desea borrar esta tutoria?</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <span><Text fontWeight='bold'>Materia</Text> {actionModalDelete.name}</span>
+                        <span><Text fontWeight='bold'>Profesor</Text> {actionModalDelete.teacher}</span>
+                        <span><Text fontWeight='bold'>Fecha</Text> {actionModalDelete.date}</span>
+                        <span><Text fontWeight='bold'>Salon</Text> {actionModalDelete.room}</span>
+                    </ModalBody>
+
+                    <ModalFooter>
+                        <Button variant='outline' colorScheme='red' mx='10px' onClick={() => eliminarYes()}>Yes</Button>
+                        <Button colorScheme='blue' mr={3} onClick={onClose2}>
+                            Cancel
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </div>
     )
 

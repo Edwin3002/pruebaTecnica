@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { loginReducers } from "../reducers/loginReducers";
 import { clasesReducers } from "../reducers/clasesReducers";
 import { registerReducers } from "../reducers/registerReducers";
+import { profesReducers } from "../reducers/profesReducers";
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -12,7 +13,8 @@ const reducersEnviar = combineReducers({
         register: registerReducers,
         // products: clasesReducers, 
         // becas: clasesReducers,
-        clases: clasesReducers
+        clases: clasesReducers,
+        profes: profesReducers
 
 })
 

@@ -37,12 +37,12 @@ const NavBars = () => {
 
                             </MenuButton>
                             <MenuList>
-                                <MenuItem fontSize='2xl'>Home</MenuItem>
+                                <MenuItem fontSize='2xl' onClick={() => navigate("/")}>Home</MenuItem>
                                 <MenuItem fontSize='2xl'>Nosotros</MenuItem>
                                 <MenuItem fontSize='2xl' onClick={handleLogout}
                                 bg={'#5534a5'}
                                 color='white'
-                                
+
                                 _hover={{
                                     bg: '#9a50ff',
                                 }}>Salir</MenuItem>

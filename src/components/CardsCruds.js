@@ -46,7 +46,7 @@ export const CardsCruds = () => {
                     <Box m='20px' border='2px solid #5534A5' borderRadius='20px'>
                         <Image className='imgAdd' borderRadius='20px' src='https://i.ibb.co/b7QN3y7/5679438.jpg' alt='Dan Abramov' />
                     </Box>
-                    <Link to='/crudProfes'>
+                    <Link to='/crudClases'>
                         <Button bg='#FFC450' my='10px' size='lg'>
                             Agregar Tutorias
                         </Button>
@@ -58,7 +58,7 @@ export const CardsCruds = () => {
                     </Box>
                     <Link to='/crudProfes'>
                         <Button bg='#5534A5' color='white' my='10px' size='lg'>
-                            Agregar Tutorias
+                            Agregar Profesores
                         </Button>
                     </Link>
                 </WrapItem>
