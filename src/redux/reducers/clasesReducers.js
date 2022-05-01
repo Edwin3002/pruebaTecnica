@@ -11,6 +11,10 @@ export const clasesReducers = (state = initialState, action) => {
             return {
                 clases: [...action.payload]
             }
+        case typesProducts.search:
+            return {
+                clases: action.payload
+            }
         case typesProducts.add:
             return {
                 clases: [action.payload]

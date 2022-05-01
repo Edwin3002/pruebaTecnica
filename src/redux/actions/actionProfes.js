@@ -5,6 +5,34 @@ import { typesProfes } from "../types/types"
 
 
 //listar_paint
+export const listFilterAsyn = (type, search) => {
+    return async (dispatch) => {
+        const colleccionTraer =collection(getMyData, "Profesores")
+        const q = query(colleccionTraer, where(type, ">=", search), where(type, "<=", search + '~'))
+        const datFilter = await getDocs(q)
+        const Profesores = []
+        // datFilter.forEach((doc) => {
+        //     Profesores.push({
+        //         ...doc.data()
+        //     })
+        // })
+        datFilter.forEach((doc => {
+            Profesores.push(doc.data())
+        }))
+        dispatch(listSync(Profesores))
+
+    }
+}
+
+export const listFilterSync = (Profesores) => {
+    return {
+        type: typesProfes.search,
+        payload: Profesores
+    }
+
+}
+
+//listar_paint
 export const listAsyn = () => {
     return async (dispatch) => {
         const colleccionTraer = await getDocs(collection(getMyData, "Profesores"))

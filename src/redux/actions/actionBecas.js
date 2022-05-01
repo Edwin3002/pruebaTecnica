@@ -4,6 +4,28 @@ import { getMyData } from "../../Firebase/firebaseConfig"
 import { typesProducts } from "../types/types"
 
 
+//filter_paint
+export const listFilterAsyn = (type, search) => {
+    return async (dispatch) => {
+        const colleccionTraer = collection(getMyData, "Clases")
+        const q = query(colleccionTraer, where(type, ">=", search), where(type, "<=", search + '~'))
+        const datFilter = await getDocs(q)
+        const clases = []
+        datFilter.forEach((doc => {
+            clases.push(doc.data())
+        }))
+        dispatch(listSync(clases))
+
+    }
+}
+
+export const listFilterSync = (clases) => {
+    return {
+        type: typesProducts.search,
+        payload: clases
+    }
+
+}
 //listar_paint
 export const listAsyn = () => {
     return async (dispatch) => {

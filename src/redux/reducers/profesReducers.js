@@ -11,6 +11,10 @@ export const profesReducers = (state = initialState, action) => {
             return {
                 profes: [...action.payload]
             }
+        case typesProfes.search:
+            return {
+                clases: action.payload
+            }
         case typesProfes.add:
             return {
                 profes: [action.payload]
@@ -19,8 +23,8 @@ export const profesReducers = (state = initialState, action) => {
             return {
                 profes: state.profes.filter(p => p.id !== action.payload)
             }
-            case typesProfes.update:
-                console.log(state)
+        case typesProfes.update:
+            console.log(state)
             return {
                 ...state
             }

@@ -38,7 +38,7 @@ const NavBars = () => {
                             </MenuButton>
                             <MenuList>
                                 <MenuItem fontSize='2xl' onClick={() => navigate("/")}>Home</MenuItem>
-                                <MenuItem fontSize='2xl'>Nosotros</MenuItem>
+                                <MenuItem fontSize='2xl' onClick={() => navigate("/list")}>list</MenuItem>
                                 <MenuItem fontSize='2xl' onClick={handleLogout}
                                 bg={'#5534a5'}
                                 color='white'
@@ -60,7 +60,8 @@ const NavBars = () => {
                     {/* <Link> */}
                     <Text fontSize='2xl' m='auto' onClick={() => navigate("/")}>Home</Text>
                     {/* </Link> */}
-                    <Text fontSize='2xl' m='auto'>Nosotros</Text>
+                    <Text fontSize='2xl' m='auto' onClick={() => navigate("/listClases")}>Listar clases</Text>
+                    <Text fontSize='2xl' m='auto' onClick={() => navigate("/listProfes")}>Listar profes</Text>
                 </Flex>
             </Flex>
 
