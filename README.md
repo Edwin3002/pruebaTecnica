@@ -2,7 +2,7 @@
 
 ### `npm start`
 
-Runs the app, you have to write in console of the proyect **npm start**
+Runs the app, you have to write in console of the proyect ***npm start***
 
 ### `about`
 
