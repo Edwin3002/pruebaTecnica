@@ -14,12 +14,13 @@ export const listFilterAsyn = (type, search) => {
         datFilter.forEach((doc => {
             clases.push(doc.data())
         }))
-        dispatch(listSync(clases))
+        dispatch(listFilterSync(clases))
 
     }
 }
 
 export const listFilterSync = (clases) => {
+    console.log(clases)
     return {
         type: typesProducts.search,
         payload: clases
@@ -57,7 +58,6 @@ export const addAsync = (clases)=>{
         addDoc(collection(getMyData, 'Clases'), clases)
         .then(resp => {
             dispatch(addSync(clases))
-            console.log(clases)
              dispatch(listAsyn())
         })
         .catch(error => {
@@ -102,19 +102,14 @@ export const updateAsync = (index, clase) => {
         const colleccionTraer = collection(getMyData, "Clases")
         const q = query(colleccionTraer, where("id", "==", index))
         const traerDatosQ = await getDocs(q)
-        console.log(colleccionTraer)
-        console.log(q)
-        console.log(traerDatosQ)
         let id
         traerDatosQ.forEach(async (docu) => {
             id = docu.id
         })
-        console.log(id)
         const documenRef = doc(getMyData, "Clases", id)
         await updateDoc(documenRef, clase)
             .then(resp => {
                 dispatch(UpdateSync(clase))
-                console.log(resp)
             })
             .catch((err) => console.log(err))
             dispatch(listAsyn())

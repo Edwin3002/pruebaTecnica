@@ -2,7 +2,7 @@ import { Avatar, Badge, Box, Button, Drawer, DrawerBody, DrawerCloseButton, Draw
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from '../Hooks/useForm'
-import { listAsyn, listFilterAsyn } from '../redux/actions/actionProfes'
+import { listAsynPr, listFilterAsyn } from '../redux/actions/actionProfes'
 
 export const ShowCardsProfes = () => {
     // cargar data
@@ -27,10 +27,10 @@ export const ShowCardsProfes = () => {
     const btnRef = React.useRef()
 
     const btnall = () => {
-        dispatch(listAsyn())
+        dispatch(listAsynPr())
     }
     useEffect(() => {
-        dispatch(listAsyn())
+        dispatch(listAsynPr())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (

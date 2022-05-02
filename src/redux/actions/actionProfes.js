@@ -19,7 +19,7 @@ export const listFilterAsyn = (type, search) => {
         datFilter.forEach((doc => {
             Profesores.push(doc.data())
         }))
-        dispatch(listSync(Profesores))
+        dispatch(listFilterSync(Profesores))
 
     }
 }
@@ -33,7 +33,7 @@ export const listFilterSync = (Profesores) => {
 }
 
 //listar_paint
-export const listAsyn = () => {
+export const listAsynPr = () => {
     return async (dispatch) => {
         const colleccionTraer = await getDocs(collection(getMyData, "Profesores"))
         const Profesores = []
@@ -44,12 +44,12 @@ export const listAsyn = () => {
 
             })
         })
-        dispatch(listSync(Profesores))
+        dispatch(listSyncPr(Profesores))
 
     }
 }
 
-export const listSync = (Profesores) => {
+export const listSyncPr = (Profesores) => {
     return {
         type: typesProfes.paint,
         payload: Profesores
@@ -64,7 +64,7 @@ export const addAsync = (Profesores)=>{
         .then(resp => {
             dispatch(addSync(Profesores))
             console.log(Profesores)
-             dispatch(listAsyn())
+             dispatch(listAsynPr())
         })
         .catch(error => {
             console.warn(error);
@@ -90,7 +90,7 @@ export const deleteAsync = (id) => {
             deleteDoc(doc(getMyData, "Profesores", collec.id))
         }))
         dispatch(deleteSync(id))
-        dispatch(listAsyn())
+        dispatch(listAsynPr())
     }
 }
 
@@ -123,7 +123,7 @@ export const updateAsync = (index, Profe) => {
                 console.log(resp)
             })
             .catch((err) => console.log(err))
-            dispatch(listAsyn())
+            dispatch(listAsynPr())
     }
 }
 

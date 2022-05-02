@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import uuid from 'react-uuid'
 import { useForm } from '../Hooks/useForm'
-import { addAsync, deleteAsync, listAsyn, updateAsync } from '../redux/actions/actionProfes'
+import { addAsync, deleteAsync, listAsynPr, updateAsync } from '../redux/actions/actionProfes'
 
 export const CrudProfes = () => {
 
@@ -87,7 +87,7 @@ export const CrudProfes = () => {
     }
 
     useEffect(() => {
-        dispatch(listAsyn())
+        dispatch(listAsynPr())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
@@ -133,7 +133,8 @@ export const CrudProfes = () => {
                 <Input id='email' type='email' name='email' value={email} onChange={handleInputChange} />
                 <FormLabel htmlFor='cel'>Celular</FormLabel>
                 <Input id='cel' type='number' name='numberPhone' value={numberPhone} onChange={handleInputChange} />
-                <Button colorScheme='blue' my=' 20px' onClick={handleSubmit}>Agregar instructores</Button>
+                <Button colorScheme='blue' m='20px' onClick={handleSubmit}>Agregar instructores</Button>
+                <Button colorScheme='green' m='20px' onClick={reset}>Reset</Button>
             </FormControl>
             <TableContainer m='20px auto' w='90%'>
                 <Table variant='striped' colorScheme='teal'>

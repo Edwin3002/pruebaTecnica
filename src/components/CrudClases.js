@@ -30,10 +30,13 @@ export const CrudClases = () => {
     // cargar data
     const dispatch = useDispatch()
 
-    const { clases } = useSelector(store => store.clases)
+    // const { profes } = useSelector((store) => store.profes)
+    const { clases } = useSelector((store) => store.clases)
+    console.log(clases)
 
     useEffect(() => {
         dispatch(listAsyn())
+        // dispatch(listAsynPr())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
