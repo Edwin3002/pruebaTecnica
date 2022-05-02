@@ -1,18 +1,19 @@
 # Back to school
 
-### `npm start`
-
-Runs the app, you have to write in console of the proyect ***npm start***
-
 ### `about`
 
 Is a website to create tutorships and teachers of this tutorships so can see all class in a list and the user can update the specific tutorships
 
-## Learn More
+### `npm start`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Runs the app, you have to write in console of the proyect ***npm start***
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Use the proyect in local
+
+if you want to run the propyect in local, you must instalar node.js: https://nodejs.org/es/  and visual studio code: https://code.visualstudio.com/  now you must to download the files, after open this file con visual code and open the terminal in the principal folder.
+Now you must to instal the dependencies with comand ***nmp i*** to the proyect is 100% funtional and the last step, you use the comand npm start in the terminal
+if you want to run the propyect in local, you must instalar node.js: https://nodejs.org/es/  and visual studio code: https://code.visualstudio.com/  now you must to download the files, after open this file con visual code and open the terminal in the principal folder.
+Now you must to instal the dependencies with comand ***nmp i*** to the proyect is 100% funtional and the last step, you use the comand npm start in the terminal
 
 ### Url
 
